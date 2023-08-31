@@ -1,0 +1,37 @@
+{
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "cSpell.words": [
+    "ethersproject",
+    "numberish",
+    "bignumber",
+    "cronos",
+    "hexlify",
+    "bulkbuy",
+    "cronoscan",
+    "typechain",
+    "commitlint",
+    "MULTICALL"
+  ],
+  "cSpell.ignoreRegExpList": ["*.yaml"],
+  "files.exclude": {
+    "**/.git": false
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "json5",
+    "yaml",
+    "toml"
+  ]
+}

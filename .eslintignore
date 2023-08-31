@@ -1,0 +1,8 @@
+dist
+build
+node_modules/
+*.js
+src/types/contracts/
+src/abis
+src/abis.private
+*.yaml
