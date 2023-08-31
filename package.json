@@ -1,6 +1,6 @@
 {
   "name": "@minted-network/sdk",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
