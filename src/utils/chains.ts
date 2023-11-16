@@ -24,7 +24,7 @@ export const isSupportedEthereumChain = (
 ): chainId is SupportedEthereumChainId => {
   return isSupportedChainGeneric<SupportedEthereumChainId>(chainId, [
     SupportedChainId.MAINNET,
-    SupportedChainId.GOERLI,
+    SupportedChainId.SEPOLIA,
   ]);
 };
 

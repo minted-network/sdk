@@ -9,7 +9,7 @@ export const rewardVestingByNetwork: Readonly<
   Record<SupportedChainId, Readonly<RewardVesting[]>>
 > = {
   [SupportedChainId.MAINNET]: [],
-  [SupportedChainId.GOERLI]: [],
+  [SupportedChainId.SEPOLIA]: [],
   [SupportedChainId.CRONOS_MAINNET]: [
     { factor: 0.25, poolId: 0 },
     { factor: 0.25, poolId: 1 },

@@ -1,9 +1,10 @@
 import { Addresses } from '../../types';
 
 /**
- * Goerli (ETH) for minted-staging environment
+ * SEPOLIA (ETH) for minted-staging environment
  */
-export const goerli: Addresses = {
+// TODO: replace all contracts with sepolia contracts addresses
+export const sepolia: Addresses = {
   /**
    * Exchange contracts
    */
