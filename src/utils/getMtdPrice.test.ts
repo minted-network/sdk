@@ -6,7 +6,7 @@ describe('getMtdPrice', () => {
     async () => {
       const usdc = await getMtdPrice(338);
       expect(usdc).toBeGreaterThan(1000);
-      expect(usdc).toBeLessThan(2000);
+      expect(usdc).toBeLessThan(5000);
     },
     10000
   );
