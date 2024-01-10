@@ -27,7 +27,7 @@ export type Addresses = Readonly<{
 
   /**
    * Rewards contracts are not deployed to ethereum networks, and the reward contracts addresses
-   * should be empty in ethereum networks(Goerli and ethereum mainnet).
+   * should be empty in ethereum networks(Sepolia and ethereum mainnet).
    */
   MINTED_TOKEN: string;
   MINTED_AIR_DROP: string;

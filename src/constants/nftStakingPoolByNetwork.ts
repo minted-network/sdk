@@ -11,7 +11,7 @@ export const nftStakingPoolByNetwork: Readonly<
   Record<SupportedChainId, Readonly<NftStakingPool[]>>
 > = {
   [SupportedChainId.MAINNET]: [],
-  [SupportedChainId.GOERLI]: [],
+  [SupportedChainId.SEPOLIA]: [],
   [SupportedChainId.CRONOS_MAINNET]: [
     {
       stakingContractAddress:
