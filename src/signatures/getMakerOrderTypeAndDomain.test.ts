@@ -22,12 +22,12 @@ describe('getMakerOrderTypeAndDomain', () => {
       verifyingContract: addressesByNetwork[1].MINTED_EXCHANGE,
     });
   });
-  it.skip('has a valid domain without verifyingContract (sepolia)', () => {
+  it('has a valid domain without verifyingContract (sepolia)', () => {
     const { domain } = getMakerOrderTypeAndDomain(11155111);
     expect(domain).toEqual({
       name: 'MintedExchange',
       version: '1',
-      chainId: 5,
+      chainId: 11155111,
       verifyingContract: addressesByNetwork[11155111].MINTED_EXCHANGE,
     });
   });

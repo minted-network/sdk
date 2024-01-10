@@ -36,7 +36,7 @@ describe('generateMakerOrderTypedData', () => {
     });
     expect(value).toEqual({ ...ORDER, params: '0x' });
   });
-  it.skip('generate typed data without a contract address', () => {
+  it('generate typed data without a contract address', () => {
     const { domain, value } = generateMakerOrderTypedData(
       SIGNER_ADDRESS,
       11155111,
@@ -45,7 +45,7 @@ describe('generateMakerOrderTypedData', () => {
     expect(domain).toEqual({
       name: 'MintedExchange',
       version: '1',
-      chainId: 5,
+      chainId: 11155111,
       verifyingContract: addressesByNetwork[11155111].MINTED_EXCHANGE,
     });
     expect(value).toEqual({ ...ORDER, params: '0x' });
