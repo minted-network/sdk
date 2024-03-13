@@ -7,6 +7,7 @@ export {
 } from './deposit';
 export {
   getERC20,
+  getERC404,
   getERC721,
   getERC1155,
   getLaunchpadERC721,
