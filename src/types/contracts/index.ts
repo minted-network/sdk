@@ -4,6 +4,7 @@
 export type { BalliesCheerleaders } from "./BalliesCheerleaders";
 export type { ERC1155 } from "./ERC1155";
 export type { ERC20 } from "./ERC20";
+export type { ERC404 } from "./ERC404";
 export type { ERC721 } from "./ERC721";
 export type { FeeDistributor } from "./FeeDistributor";
 export type { IExecutionStrategy } from "./IExecutionStrategy";
@@ -29,6 +30,7 @@ export * as factories from "./factories";
 export { BalliesCheerleaders__factory } from "./factories/BalliesCheerleaders__factory";
 export { ERC1155__factory } from "./factories/ERC1155__factory";
 export { ERC20__factory } from "./factories/ERC20__factory";
+export { ERC404__factory } from "./factories/ERC404__factory";
 export { ERC721__factory } from "./factories/ERC721__factory";
 export { FeeDistributor__factory } from "./factories/FeeDistributor__factory";
 export { IExecutionStrategy__factory } from "./factories/IExecutionStrategy__factory";
