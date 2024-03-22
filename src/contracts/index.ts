@@ -10,6 +10,7 @@ export {
   getERC404,
   getERC721,
   getERC1155,
+  getLaunchpadERC20,
   getLaunchpadERC721,
 } from './generics';
 export { getMintedExchange } from './getMintedExchange';
