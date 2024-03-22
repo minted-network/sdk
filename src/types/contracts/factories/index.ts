@@ -8,6 +8,7 @@ export { ERC404__factory } from "./ERC404__factory";
 export { ERC721__factory } from "./ERC721__factory";
 export { FeeDistributor__factory } from "./FeeDistributor__factory";
 export { IExecutionStrategy__factory } from "./IExecutionStrategy__factory";
+export { LaunchpadERC20__factory } from "./LaunchpadERC20__factory";
 export { LaunchpadERC721__factory } from "./LaunchpadERC721__factory";
 export { LaunchpadERC721V2__factory } from "./LaunchpadERC721V2__factory";
 export { MintedAggregator__factory } from "./MintedAggregator__factory";
