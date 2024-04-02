@@ -4,7 +4,7 @@ import { addressesByNetwork } from '../addressesByNetwork';
 export const cronosMainnet: ChainInfo = {
   chainId: SupportedChainId.CRONOS_MAINNET,
   label: 'Cronos',
-  explorer: 'https://explorer.cronos.org',
+  explorer: 'https://cronoscan.com',
   scanText: 'Cronoscan',
   rpcUrl: 'https://mainnet.cronoslabs.org/v1/ea0f1c40f912a166bf1224fedd07b442',
   wrappedCurrency: {
