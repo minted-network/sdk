@@ -6,7 +6,7 @@ export const cronosMainnet: ChainInfo = {
   label: 'Cronos',
   explorer: 'https://cronoscan.com',
   scanText: 'Cronoscan',
-  rpcUrl: 'https://mainnet.cronoslabs.org/v1/ea0f1c40f912a166bf1224fedd07b442',
+  rpcUrl: 'https://psta-forkenv.crorc.co/endpoints/5cbe8d9bb0615f81',
   wrappedCurrency: {
     address: addressesByNetwork[SupportedChainId.CRONOS_MAINNET].WETH,
     name: 'WCRO',
