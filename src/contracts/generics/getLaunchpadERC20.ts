@@ -13,8 +13,7 @@ import { getContract } from '../../utils/getContract';
  * @param contractAddress the contract address
  * @param signer signer is required when you need to write to the contract.
  *
- * @returns the contract
- *
+ * @returns the contract instance
  */
 export const getLaunchpadERC20 = (
   chainId: SupportedChainId,

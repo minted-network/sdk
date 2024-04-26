@@ -29,24 +29,30 @@ import type {
 
 export interface LaunchpadERC20Interface extends utils.Interface {
   functions: {
+    "addCRC20Template(uint8,address)": FunctionFragment;
     "createCRC20Launchpad(uint8,string,string,uint256)": FunctionFragment;
     "owner()": FunctionFragment;
+    "removeCRC20Template(uint8)": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "setCRC20Template(uint8,address)": FunctionFragment;
     "templates(uint8)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
+      | "addCRC20Template"
       | "createCRC20Launchpad"
       | "owner"
+      | "removeCRC20Template"
       | "renounceOwnership"
-      | "setCRC20Template"
       | "templates"
       | "transferOwnership"
   ): FunctionFragment;
 
+  encodeFunctionData(
+    functionFragment: "addCRC20Template",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "createCRC20Launchpad",
     values: [
@@ -58,12 +64,12 @@ export interface LaunchpadERC20Interface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "renounceOwnership",
-    values?: undefined
+    functionFragment: "removeCRC20Template",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "setCRC20Template",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    functionFragment: "renounceOwnership",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "templates",
@@ -75,16 +81,20 @@ export interface LaunchpadERC20Interface extends utils.Interface {
   ): string;
 
   decodeFunctionResult(
+    functionFragment: "addCRC20Template",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "createCRC20Launchpad",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "renounceOwnership",
+    functionFragment: "removeCRC20Template",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setCRC20Template",
+    functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "templates", data: BytesLike): Result;
@@ -96,11 +106,13 @@ export interface LaunchpadERC20Interface extends utils.Interface {
   events: {
     "LaunchpadCRC20(address,address,string,string,uint256)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
-    "SetCRC20Template(uint8,address,address)": EventFragment;
+    "RemoveCRC20Template(uint8,address)": EventFragment;
+    "SetCRC20Template(uint8,address)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "LaunchpadCRC20"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RemoveCRC20Template"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SetCRC20Template"): EventFragment;
 }
 
@@ -130,13 +142,24 @@ export type OwnershipTransferredEvent = TypedEvent<
 export type OwnershipTransferredEventFilter =
   TypedEventFilter<OwnershipTransferredEvent>;
 
+export interface RemoveCRC20TemplateEventObject {
+  teamplateId: number;
+  ecc20Template: string;
+}
+export type RemoveCRC20TemplateEvent = TypedEvent<
+  [number, string],
+  RemoveCRC20TemplateEventObject
+>;
+
+export type RemoveCRC20TemplateEventFilter =
+  TypedEventFilter<RemoveCRC20TemplateEvent>;
+
 export interface SetCRC20TemplateEventObject {
-  templateId: number;
-  oldCRC20Template: string;
-  newCRC20Template: string;
+  teamplateId: number;
+  ecc20Template: string;
 }
 export type SetCRC20TemplateEvent = TypedEvent<
-  [number, string, string],
+  [number, string],
   SetCRC20TemplateEventObject
 >;
 
@@ -170,8 +193,14 @@ export interface LaunchpadERC20 extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    addCRC20Template(
+      _templateId: PromiseOrValue<BigNumberish>,
+      _crc20Template: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     createCRC20Launchpad(
-      templateId: PromiseOrValue<BigNumberish>,
+      teamplateId: PromiseOrValue<BigNumberish>,
       _name: PromiseOrValue<string>,
       _symbol: PromiseOrValue<string>,
       _totalSupply: PromiseOrValue<BigNumberish>,
@@ -180,13 +209,12 @@ export interface LaunchpadERC20 extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
-    renounceOwnership(
+    removeCRC20Template(
+      _templateId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    setCRC20Template(
-      _templateId: PromiseOrValue<BigNumberish>,
-      _crc20Template: PromiseOrValue<string>,
+    renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -201,8 +229,14 @@ export interface LaunchpadERC20 extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
+  addCRC20Template(
+    _templateId: PromiseOrValue<BigNumberish>,
+    _crc20Template: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   createCRC20Launchpad(
-    templateId: PromiseOrValue<BigNumberish>,
+    teamplateId: PromiseOrValue<BigNumberish>,
     _name: PromiseOrValue<string>,
     _symbol: PromiseOrValue<string>,
     _totalSupply: PromiseOrValue<BigNumberish>,
@@ -211,13 +245,12 @@ export interface LaunchpadERC20 extends BaseContract {
 
   owner(overrides?: CallOverrides): Promise<string>;
 
-  renounceOwnership(
+  removeCRC20Template(
+    _templateId: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  setCRC20Template(
-    _templateId: PromiseOrValue<BigNumberish>,
-    _crc20Template: PromiseOrValue<string>,
+  renounceOwnership(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -232,8 +265,14 @@ export interface LaunchpadERC20 extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    addCRC20Template(
+      _templateId: PromiseOrValue<BigNumberish>,
+      _crc20Template: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     createCRC20Launchpad(
-      templateId: PromiseOrValue<BigNumberish>,
+      teamplateId: PromiseOrValue<BigNumberish>,
       _name: PromiseOrValue<string>,
       _symbol: PromiseOrValue<string>,
       _totalSupply: PromiseOrValue<BigNumberish>,
@@ -242,13 +281,12 @@ export interface LaunchpadERC20 extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    renounceOwnership(overrides?: CallOverrides): Promise<void>;
-
-    setCRC20Template(
+    removeCRC20Template(
       _templateId: PromiseOrValue<BigNumberish>,
-      _crc20Template: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
     templates(
       arg0: PromiseOrValue<BigNumberish>,
@@ -286,21 +324,34 @@ export interface LaunchpadERC20 extends BaseContract {
       newOwner?: PromiseOrValue<string> | null
     ): OwnershipTransferredEventFilter;
 
-    "SetCRC20Template(uint8,address,address)"(
-      templateId?: null,
-      oldCRC20Template?: null,
-      newCRC20Template?: null
+    "RemoveCRC20Template(uint8,address)"(
+      teamplateId?: null,
+      ecc20Template?: null
+    ): RemoveCRC20TemplateEventFilter;
+    RemoveCRC20Template(
+      teamplateId?: null,
+      ecc20Template?: null
+    ): RemoveCRC20TemplateEventFilter;
+
+    "SetCRC20Template(uint8,address)"(
+      teamplateId?: null,
+      ecc20Template?: null
     ): SetCRC20TemplateEventFilter;
     SetCRC20Template(
-      templateId?: null,
-      oldCRC20Template?: null,
-      newCRC20Template?: null
+      teamplateId?: null,
+      ecc20Template?: null
     ): SetCRC20TemplateEventFilter;
   };
 
   estimateGas: {
+    addCRC20Template(
+      _templateId: PromiseOrValue<BigNumberish>,
+      _crc20Template: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     createCRC20Launchpad(
-      templateId: PromiseOrValue<BigNumberish>,
+      teamplateId: PromiseOrValue<BigNumberish>,
       _name: PromiseOrValue<string>,
       _symbol: PromiseOrValue<string>,
       _totalSupply: PromiseOrValue<BigNumberish>,
@@ -309,13 +360,12 @@ export interface LaunchpadERC20 extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
-    renounceOwnership(
+    removeCRC20Template(
+      _templateId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    setCRC20Template(
-      _templateId: PromiseOrValue<BigNumberish>,
-      _crc20Template: PromiseOrValue<string>,
+    renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -331,8 +381,14 @@ export interface LaunchpadERC20 extends BaseContract {
   };
 
   populateTransaction: {
+    addCRC20Template(
+      _templateId: PromiseOrValue<BigNumberish>,
+      _crc20Template: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     createCRC20Launchpad(
-      templateId: PromiseOrValue<BigNumberish>,
+      teamplateId: PromiseOrValue<BigNumberish>,
       _name: PromiseOrValue<string>,
       _symbol: PromiseOrValue<string>,
       _totalSupply: PromiseOrValue<BigNumberish>,
@@ -341,13 +397,12 @@ export interface LaunchpadERC20 extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    renounceOwnership(
+    removeCRC20Template(
+      _templateId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    setCRC20Template(
-      _templateId: PromiseOrValue<BigNumberish>,
-      _crc20Template: PromiseOrValue<string>,
+    renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

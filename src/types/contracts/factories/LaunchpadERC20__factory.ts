@@ -72,19 +72,32 @@ const _abi = [
       {
         indexed: false,
         internalType: "uint8",
-        name: "templateId",
+        name: "teamplateId",
         type: "uint8",
       },
       {
         indexed: false,
         internalType: "address",
-        name: "oldCRC20Template",
+        name: "ecc20Template",
         type: "address",
+      },
+    ],
+    name: "RemoveCRC20Template",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint8",
+        name: "teamplateId",
+        type: "uint8",
       },
       {
         indexed: false,
         internalType: "address",
-        name: "newCRC20Template",
+        name: "ecc20Template",
         type: "address",
       },
     ],
@@ -95,7 +108,25 @@ const _abi = [
     inputs: [
       {
         internalType: "uint8",
-        name: "templateId",
+        name: "_templateId",
+        type: "uint8",
+      },
+      {
+        internalType: "address",
+        name: "_crc20Template",
+        type: "address",
+      },
+    ],
+    name: "addCRC20Template",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint8",
+        name: "teamplateId",
         type: "uint8",
       },
       {
@@ -139,26 +170,21 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "renounceOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "uint8",
         name: "_templateId",
         type: "uint8",
       },
-      {
-        internalType: "address",
-        name: "_crc20Template",
-        type: "address",
-      },
     ],
-    name: "setCRC20Template",
+    name: "removeCRC20Template",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "renounceOwnership",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
