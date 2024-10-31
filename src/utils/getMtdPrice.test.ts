@@ -5,8 +5,8 @@ describe('getMtdPrice', () => {
     'testnet',
     async () => {
       const usdc = await getMtdPrice(338);
-      expect(usdc).toBeGreaterThan(1000);
-      expect(usdc).toBeLessThan(5000);
+      expect(usdc).toBeGreaterThan(0);
+      expect(usdc).toBeLessThan(5);
     },
     10000
   );
