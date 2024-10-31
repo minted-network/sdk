@@ -2,7 +2,7 @@ import json from '@rollup/plugin-json';
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
 
-import pkg from './package.json' assert { type: 'json', integrity: 'sha384-ABC123' };
+import pkg from './package.json' assert { type: 'json' };
 
 export default [
   {
