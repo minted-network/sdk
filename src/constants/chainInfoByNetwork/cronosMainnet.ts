@@ -7,6 +7,7 @@ export const cronosMainnet: ChainInfo = {
   explorer: 'https://cronoscan.com',
   scanText: 'Cronoscan',
   rpcUrl:
+    process.env.CRONOS_MAINNET_RPC_URL ||
     'https://mainnet-archive.cronoslabs.com/v1/77e80d886c8ee62b04cdb49c63de4f31',
   wrappedCurrency: {
     address: addressesByNetwork[SupportedChainId.CRONOS_MAINNET].WETH,

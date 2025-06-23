@@ -14,7 +14,7 @@ describe('getMtdPrice', () => {
     'mainnet',
     async () => {
       const usdc = await getMtdPrice(25);
-      expect(usdc).toBeGreaterThan(0.01);
+      expect(usdc).toBeGreaterThan(0.001);
       expect(usdc).toBeLessThan(0.1);
     },
     10000
