@@ -29,6 +29,15 @@ pnpm i @minted-network/sdk ethers
 
 ## Dev
 
+### Env
+
+```bash
+# the rpc url of CRONOS Mainnet
+RPC_NETWORK_25
+# the rpc url of CRONOS TESTNET
+RPC_NETWORK_338
+```
+
 ### Build
 
 ```bash
