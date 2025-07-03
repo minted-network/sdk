@@ -28,7 +28,7 @@ import type {
   PromiseOrValue,
 } from "./common";
 
-export declare namespace MintedBoostBase {
+export declare namespace MintedBoostBase1 {
   export type StakeStruct = {
     amount: PromiseOrValue<BigNumberish>;
     poolId: PromiseOrValue<BigNumberish>;
@@ -85,6 +85,8 @@ export interface MintedBoostInterface extends utils.Interface {
     "lastMtdBalance()": FunctionFragment;
     "lastRewardBlock()": FunctionFragment;
     "lastWcroBalance()": FunctionFragment;
+    "manualRewardActive()": FunctionFragment;
+    "manualRewardPerBlock()": FunctionFragment;
     "mtd()": FunctionFragment;
     "multiplierRegistries(address)": FunctionFragment;
     "name()": FunctionFragment;
@@ -98,6 +100,7 @@ export interface MintedBoostInterface extends utils.Interface {
     "proxiableUUID()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "set(uint256,uint256,uint256)": FunctionFragment;
+    "setManualRewardPerBlock(uint256,bool)": FunctionFragment;
     "setNftStakeLimit(uint256)": FunctionFragment;
     "stake(address,uint256[])": FunctionFragment;
     "symbol()": FunctionFragment;
@@ -148,6 +151,8 @@ export interface MintedBoostInterface extends utils.Interface {
       | "lastMtdBalance"
       | "lastRewardBlock"
       | "lastWcroBalance"
+      | "manualRewardActive"
+      | "manualRewardPerBlock"
       | "mtd"
       | "multiplierRegistries"
       | "name"
@@ -161,6 +166,7 @@ export interface MintedBoostInterface extends utils.Interface {
       | "proxiableUUID"
       | "renounceOwnership"
       | "set"
+      | "setManualRewardPerBlock"
       | "setNftStakeLimit"
       | "stake"
       | "symbol"
@@ -293,6 +299,14 @@ export interface MintedBoostInterface extends utils.Interface {
     functionFragment: "lastWcroBalance",
     values?: undefined
   ): string;
+  encodeFunctionData(
+    functionFragment: "manualRewardActive",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "manualRewardPerBlock",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "mtd", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "multiplierRegistries",
@@ -344,6 +358,10 @@ export interface MintedBoostInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>
     ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setManualRewardPerBlock",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<boolean>]
   ): string;
   encodeFunctionData(
     functionFragment: "setNftStakeLimit",
@@ -495,6 +513,14 @@ export interface MintedBoostInterface extends utils.Interface {
     functionFragment: "lastWcroBalance",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "manualRewardActive",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "manualRewardPerBlock",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "mtd", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "multiplierRegistries",
@@ -526,6 +552,10 @@ export interface MintedBoostInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "set", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "setManualRewardPerBlock",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "setNftStakeLimit",
     data: BytesLike
@@ -584,6 +614,7 @@ export interface MintedBoostInterface extends utils.Interface {
     "NFTDisabled(address)": EventFragment;
     "NFTEnabled(address,address)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
+    "SetManualReward(uint256,bool)": EventFragment;
     "SetNftStakeLimit(uint256,uint256)": EventFragment;
     "SetPool(uint256,uint256,uint256)": EventFragment;
     "StakeNFT(address,address,uint256)": EventFragment;
@@ -610,6 +641,7 @@ export interface MintedBoostInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "NFTDisabled"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "NFTEnabled"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "SetManualReward"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SetNftStakeLimit"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SetPool"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "StakeNFT"): EventFragment;
@@ -768,6 +800,17 @@ export type OwnershipTransferredEvent = TypedEvent<
 
 export type OwnershipTransferredEventFilter =
   TypedEventFilter<OwnershipTransferredEvent>;
+
+export interface SetManualRewardEventObject {
+  ratePerBlock: BigNumber;
+  active: boolean;
+}
+export type SetManualRewardEvent = TypedEvent<
+  [BigNumber, boolean],
+  SetManualRewardEventObject
+>;
+
+export type SetManualRewardEventFilter = TypedEventFilter<SetManualRewardEvent>;
 
 export interface SetNftStakeLimitEventObject {
   newStakeLimit: BigNumber;
@@ -1009,13 +1052,13 @@ export interface MintedBoost extends BaseContract {
     getUserInfo(
       _user: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber, MintedBoostBase.StakeStructOutput[]]>;
+    ): Promise<[BigNumber, BigNumber, MintedBoostBase1.StakeStructOutput[]]>;
 
     getUserStake(
       _user: PromiseOrValue<string>,
       _stakeId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[MintedBoostBase.StakeStructOutput]>;
+    ): Promise<[MintedBoostBase1.StakeStructOutput]>;
 
     increaseAllowance(
       spender: PromiseOrValue<string>,
@@ -1036,6 +1079,10 @@ export interface MintedBoost extends BaseContract {
     lastRewardBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     lastWcroBalance(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    manualRewardActive(overrides?: CallOverrides): Promise<[boolean]>;
+
+    manualRewardPerBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     mtd(overrides?: CallOverrides): Promise<[string]>;
 
@@ -1091,6 +1138,12 @@ export interface MintedBoost extends BaseContract {
       _pid: PromiseOrValue<BigNumberish>,
       _multiplier: PromiseOrValue<BigNumberish>,
       _lockPeriod: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    setManualRewardPerBlock(
+      _newRate: PromiseOrValue<BigNumberish>,
+      _active: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -1287,13 +1340,13 @@ export interface MintedBoost extends BaseContract {
   getUserInfo(
     _user: PromiseOrValue<string>,
     overrides?: CallOverrides
-  ): Promise<[BigNumber, BigNumber, MintedBoostBase.StakeStructOutput[]]>;
+  ): Promise<[BigNumber, BigNumber, MintedBoostBase1.StakeStructOutput[]]>;
 
   getUserStake(
     _user: PromiseOrValue<string>,
     _stakeId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
-  ): Promise<MintedBoostBase.StakeStructOutput>;
+  ): Promise<MintedBoostBase1.StakeStructOutput>;
 
   increaseAllowance(
     spender: PromiseOrValue<string>,
@@ -1314,6 +1367,10 @@ export interface MintedBoost extends BaseContract {
   lastRewardBlock(overrides?: CallOverrides): Promise<BigNumber>;
 
   lastWcroBalance(overrides?: CallOverrides): Promise<BigNumber>;
+
+  manualRewardActive(overrides?: CallOverrides): Promise<boolean>;
+
+  manualRewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
 
   mtd(overrides?: CallOverrides): Promise<string>;
 
@@ -1369,6 +1426,12 @@ export interface MintedBoost extends BaseContract {
     _pid: PromiseOrValue<BigNumberish>,
     _multiplier: PromiseOrValue<BigNumberish>,
     _lockPeriod: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  setManualRewardPerBlock(
+    _newRate: PromiseOrValue<BigNumberish>,
+    _active: PromiseOrValue<boolean>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1565,13 +1628,13 @@ export interface MintedBoost extends BaseContract {
     getUserInfo(
       _user: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber, MintedBoostBase.StakeStructOutput[]]>;
+    ): Promise<[BigNumber, BigNumber, MintedBoostBase1.StakeStructOutput[]]>;
 
     getUserStake(
       _user: PromiseOrValue<string>,
       _stakeId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<MintedBoostBase.StakeStructOutput>;
+    ): Promise<MintedBoostBase1.StakeStructOutput>;
 
     increaseAllowance(
       spender: PromiseOrValue<string>,
@@ -1592,6 +1655,10 @@ export interface MintedBoost extends BaseContract {
     lastRewardBlock(overrides?: CallOverrides): Promise<BigNumber>;
 
     lastWcroBalance(overrides?: CallOverrides): Promise<BigNumber>;
+
+    manualRewardActive(overrides?: CallOverrides): Promise<boolean>;
+
+    manualRewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
 
     mtd(overrides?: CallOverrides): Promise<string>;
 
@@ -1645,6 +1712,12 @@ export interface MintedBoost extends BaseContract {
       _pid: PromiseOrValue<BigNumberish>,
       _multiplier: PromiseOrValue<BigNumberish>,
       _lockPeriod: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setManualRewardPerBlock(
+      _newRate: PromiseOrValue<BigNumberish>,
+      _active: PromiseOrValue<boolean>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1877,6 +1950,15 @@ export interface MintedBoost extends BaseContract {
       newOwner?: PromiseOrValue<string> | null
     ): OwnershipTransferredEventFilter;
 
+    "SetManualReward(uint256,bool)"(
+      ratePerBlock?: null,
+      active?: null
+    ): SetManualRewardEventFilter;
+    SetManualReward(
+      ratePerBlock?: null,
+      active?: null
+    ): SetManualRewardEventFilter;
+
     "SetNftStakeLimit(uint256,uint256)"(
       newStakeLimit?: null,
       oldStakeLimit?: null
@@ -2108,6 +2190,10 @@ export interface MintedBoost extends BaseContract {
 
     lastWcroBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
+    manualRewardActive(overrides?: CallOverrides): Promise<BigNumber>;
+
+    manualRewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
+
     mtd(overrides?: CallOverrides): Promise<BigNumber>;
 
     multiplierRegistries(
@@ -2156,6 +2242,12 @@ export interface MintedBoost extends BaseContract {
       _pid: PromiseOrValue<BigNumberish>,
       _multiplier: PromiseOrValue<BigNumberish>,
       _lockPeriod: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    setManualRewardPerBlock(
+      _newRate: PromiseOrValue<BigNumberish>,
+      _active: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -2371,6 +2463,14 @@ export interface MintedBoost extends BaseContract {
 
     lastWcroBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    manualRewardActive(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    manualRewardPerBlock(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     mtd(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     multiplierRegistries(
@@ -2419,6 +2519,12 @@ export interface MintedBoost extends BaseContract {
       _pid: PromiseOrValue<BigNumberish>,
       _multiplier: PromiseOrValue<BigNumberish>,
       _lockPeriod: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setManualRewardPerBlock(
+      _newRate: PromiseOrValue<BigNumberish>,
+      _active: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

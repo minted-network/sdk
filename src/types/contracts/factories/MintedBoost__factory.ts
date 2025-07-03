@@ -303,6 +303,25 @@ const _abi = [
       {
         indexed: false,
         internalType: "uint256",
+        name: "ratePerBlock",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "active",
+        type: "bool",
+      },
+    ],
+    name: "SetManualReward",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
         name: "newStakeLimit",
         type: "uint256",
       },
@@ -952,7 +971,7 @@ const _abi = [
             type: "bool",
           },
         ],
-        internalType: "struct MintedBoostBase.Stake[]",
+        internalType: "struct MintedBoostBase1.Stake[]",
         name: "",
         type: "tuple[]",
       },
@@ -1008,7 +1027,7 @@ const _abi = [
             type: "bool",
           },
         ],
-        internalType: "struct MintedBoostBase.Stake",
+        internalType: "struct MintedBoostBase1.Stake",
         name: "",
         type: "tuple",
       },
@@ -1097,6 +1116,32 @@ const _abi = [
   {
     inputs: [],
     name: "lastWcroBalance",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "manualRewardActive",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "manualRewardPerBlock",
     outputs: [
       {
         internalType: "uint256",
@@ -1331,6 +1376,24 @@ const _abi = [
       },
     ],
     name: "set",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_newRate",
+        type: "uint256",
+      },
+      {
+        internalType: "bool",
+        name: "_active",
+        type: "bool",
+      },
+    ],
+    name: "setManualRewardPerBlock",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
